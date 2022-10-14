@@ -35,27 +35,21 @@ public class UserController {
     }
 
     @PostMapping
-    public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "add_user";
-        }
-        if (user.getId() == 0) {
-            userService.addUser(user);
-        } else {
-            userService.updateUser(user);
-        }
+    public String addUser(@ModelAttribute("user") User user) {
+        userService.addUser(user);
         return "redirect:/users";
     }
 
-    @GetMapping(value = "/{id}/update")
-    public String updateUser(@PathVariable(value = "id") int id, ModelMap model) {
-
-        User user = userService.getUserById(id);
-        if (user == null) {
-            return "redirect:/users";
-        }
-        model.addAttribute("user", user);
+    @GetMapping("/{id}/update")
+    public String editUser(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.getUserById(id));
         return "update";
+    }
+
+    @PatchMapping (value = "/{id}")
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.updateUser(user);
+        return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")

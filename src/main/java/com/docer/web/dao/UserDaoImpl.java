@@ -40,8 +40,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(User user) {
-        entityManager.merge(user);
-        entityManager.flush();
+        User updateUser = entityManager.find(User.class, user.getId());
+
+        updateUser.setName(user.getName());
+        updateUser.setSurname(user.getSurname());
+        updateUser.setAge(user.getAge());
     }
 
 }

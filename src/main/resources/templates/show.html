@@ -5,9 +5,20 @@
     <title>User</title>
 </head>
 <body>
-
-<p th:text="${user.getName()}">VALUE</p>
-<p th:text="${user.getId()}">VALUE</p>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+    </tr>
+    <tr>
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getSurname()}"></td>
+        <td th:text="${user.getAge()}"></td>
+    </tr>
+</table>
 
 <a th:href="@{/users/{id}/update(id=${user.getId()})}">Update user</a>
 
